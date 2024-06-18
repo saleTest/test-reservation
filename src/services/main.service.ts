@@ -11,12 +11,33 @@ export const client = axios.create({
     return status.toString().startsWith("2");
   },
 });
+// client.interceptors.request.use(
+//   async (config) => {
+//     const token = AuthService.getAccessToken();
+//     if (token) {
+//       config.headers.Authorization = `Bearer ${token}`;
+//       console.log("Authorization Header:", config.headers.Authorization);
+//     } else {
+//       console.log("No token available");
+//     }
 
+//     // Ovde dodajemo payload u zahtev ako postoji
+//     if (config.data) {
+//       console.log("Request Payload:", config.data);
+//     }
+
+//     return config;
+//   },
+//   (error) => {
+//     return Promise.reject(error);
+//   }
+// );
 export async function useAxios(path: string, method = "get", payload = {}) {
   let rsp: AxiosResponse;
 
   try {
-    console.log(AuthService.getAccessToken());
+    const token = AuthService.getAccessToken();
+    console.log("Access Token:", token);
     rsp = (await client.request({
       url: path,
       method: method,
@@ -27,6 +48,7 @@ export async function useAxios(path: string, method = "get", payload = {}) {
       data: payload,
     })) as AxiosResponse;
   } catch (e) {
+    console.error("Axios request error:", e);
     rsp = (e as AxiosError).response as AxiosResponse;
   }
 
@@ -36,6 +58,9 @@ export async function useAxios(path: string, method = "get", payload = {}) {
 
   if (rsp.status == 403) {
     try {
+      console.log("Token expired, refreshing token...");
+      const refreshToken = AuthService.getRefreshToken();
+      console.log("Refresh Token:", refreshToken);
       const token = await client.request({
         url: "/user/refresh",
         method: "post",
@@ -44,6 +69,8 @@ export async function useAxios(path: string, method = "get", payload = {}) {
           Authorization: `Bearer ${AuthService.getRefreshToken()}`,
         },
       });
+      console.log("New access token received:", token.data);
+
       AuthService.saveAuth(token.data);
 
       return await client.request({
@@ -56,12 +83,16 @@ export async function useAxios(path: string, method = "get", payload = {}) {
         data: payload,
       });
     } catch (e) {
+      console.error("Token refresh failed:", e);
+
       AuthService.clearAuth();
       throw new Error("REFRESH_FAILED");
     }
   }
 
   if (rsp.status == 404) {
+    console.error("Resource not found");
+
     throw new Error("NOT_FOUND");
   }
 

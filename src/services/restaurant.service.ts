@@ -10,15 +10,19 @@ export class RestaurantService {
   }
 
   static async getRestaurantById(id: any) {
-    console.log(id);
-    // typeof id;
-    console.log("acc", AuthService.getAccessToken());
-    console.log(AuthService.getRefreshToken());
+    // console.log(id);
+    // // typeof id;
+    // console.log("getAccessToken", AuthService.getAccessToken());
+    // console.log("getRefreshToken", AuthService.getRefreshToken());
     return await client.request({
       url: `/restaurant/${id}`,
       method: "get",
     });
   }
+
+  // static async getRestaurantById(id: number, data: any) {
+  //   return await useAxios(`/restaurant/${id}`, "get", data);
+  // }
 
   static async getTopRankedRestourant() {
     return await client.request({
