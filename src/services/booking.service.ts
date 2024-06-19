@@ -10,19 +10,19 @@ export class BookingService {
   static async getBookingById(id: number) {
     return await useAxios(`/booking/${id}`);
   }
-  static async cancelBooking(id: number, data: any) {
+  static async cancelBooking(id: string, data: any) {
     console.log(data);
     return await useAxios(`/booking/${id}/cancel`, "put", data);
   }
 
-  static async acceptBooking(id: number, data: any) {
+  static async acceptBooking(id: string, data: any) {
     return await useAxios(`/booking/${id}/accept`, "put", data);
   }
 
-  static async updateBooking(id: number, data: any) {
+  static async updateBooking(id: string, data: any) {
     return await useAxios(`/booking/${id}`, "put", data);
   }
-  static async deleteBooking(id: number) {
+  static async deleteBooking(id: string) {
     return await useAxios(`/booking/${id}`, "delete");
   }
 }

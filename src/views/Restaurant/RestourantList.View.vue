@@ -10,10 +10,8 @@ RestaurantService.getAllRestaurant().then(
 
 async function removeRestaurant(model: RestaurantModel) {
   if (confirm("Are you sure you want to delete this restaurant?")) {
-    await RestaurantService.deleteRestourant(model.restaurantId);
-    restaurant.value = restaurant.value?.filter(
-      (obj) => obj.restaurantId !== model.restaurantId
-    );
+    await RestaurantService.deleteRestourant(model._id);
+    restaurant.value = restaurant.value?.filter((obj) => obj._id !== model._id);
     alert("Restaurant deleted successfully.");
   } else {
     alert("Restaurant deletion canceled.");
@@ -40,14 +38,14 @@ async function removeRestaurant(model: RestaurantModel) {
           </tr>
         </thead>
         <tbody>
-          <tr v-for="obj in restaurant">
-            <th scope="row">{{ obj.restaurantId }}</th>
+          <tr v-for="(obj, index) in restaurant">
+            <th scope="row">{{ index + 1 }}</th>
             <td>{{ obj.name }}</td>
             <td>
               <div class="btn-group">
                 <RouterLink
                   class="btn btn-sm btn-primary"
-                  :to="`/edit-restaurant/${obj.restaurantId}`"
+                  :to="`/edit-restaurant/${obj._id}`"
                 >
                   <i class="fa-solid fa-pen-to-square"></i>
                 </RouterLink>
@@ -63,7 +61,7 @@ async function removeRestaurant(model: RestaurantModel) {
             <td>
               <RouterLink
                 class="btn btn-sm btn-primary"
-                :to="`/restaurant/${obj.restaurantId}`"
+                :to="`/restaurant/${obj._id}`"
               >
                 <i class="fa-regular fa-eye"></i>
               </RouterLink>

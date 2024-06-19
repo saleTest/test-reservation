@@ -49,7 +49,7 @@ function logout() {
               >Home</RouterLink
             >
           </li>
-          <div v-if="AuthService.getRole() === 1" class="dropdown">
+          <div v-if="AuthService.getRole() === 'admin'" class="dropdown">
             <a
               class="btn btn-secondary dropdown-toggle"
               href="#"
@@ -69,7 +69,7 @@ function logout() {
             </ul>
           </div>
 
-          <div v-if="AuthService.getRole() === 2" class="dropdown">
+          <div v-if="AuthService.getRole() === 'admin'" class="dropdown">
             <a
               class="btn btn-secondary dropdown-toggle"
               href="#"

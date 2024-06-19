@@ -1,5 +1,6 @@
 import type { AuthModel } from "@/modals/auth.model";
 import { client } from "./main.service";
+// import jwt from "jsonwebtoken";
 
 export class AuthService {
   public static saveAuth(model: AuthModel) {
@@ -26,6 +27,7 @@ export class AuthService {
   }
 
   public static getRole() {
+    // console.log(this.getAuth().role);
     return this.getAuth().role;
   }
 

@@ -6,8 +6,8 @@ import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
 const router = useRouter();
-const id = Number.parseInt(route.params.id as any);
-
+const id = String(route.params.id as any);
+// console.log(id);
 const restaurant = ref<RestaurantModel>();
 RestaurantService.getRestaurantById(id).then((rsp) => {
   restaurant.value = rsp.data;
@@ -32,10 +32,10 @@ function updateRestaurant() {
       <div class="mb-3">
         <label for="id" class="form-label">Id:</label>
         <input
-          type="number"
+          type="string"
           class="form-control"
           id="id"
-          :value="restaurant.restaurantId"
+          :value="restaurant._id"
           disabled
         />
       </div>

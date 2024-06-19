@@ -34,10 +34,10 @@ export class RestaurantService {
   static async addRestourant(data: any) {
     return await useAxios("/restaurant", "post", data);
   }
-  static async updateRestarant(id: number, data: any) {
+  static async updateRestarant(id: any, data: any) {
     return await useAxios(`/restaurant/${id}`, "put", data);
   }
-  static async deleteRestourant(id: number) {
+  static async deleteRestourant(id: any) {
     return await useAxios(`/restaurant/${id}`, "delete");
   }
 }

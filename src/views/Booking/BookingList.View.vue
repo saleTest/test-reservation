@@ -25,10 +25,8 @@ BookingService.getAllBooking().then((rsp) => {
 
 async function removeBooking(model: BookingModel) {
   if (confirm("Are you sure you want to delete this booking?")) {
-    await BookingService.deleteBooking(model.bookingId);
-    booking.value = booking.value?.filter(
-      (obj) => obj.bookingId !== model.bookingId
-    );
+    await BookingService.deleteBooking(model._id);
+    booking.value = booking.value?.filter((obj) => obj._id !== model._id);
     alert("Booking deleted successfully.");
   } else {
     alert("Booking deletion canceled.");
@@ -44,7 +42,7 @@ async function removeBooking(model: BookingModel) {
 //   });
 // }
 
-async function cancelBooking(id: number) {
+async function cancelBooking(id: string) {
   try {
     const statusUpdateData = { statusId: 4 };
     const response = await BookingService.cancelBooking(id, statusUpdateData);
@@ -58,7 +56,7 @@ async function cancelBooking(id: number) {
   }
 }
 
-async function acceptBooking(id: number) {
+async function acceptBooking(id: string) {
   try {
     const statusUpdateData = { statusId: 1 };
     const response = await BookingService.cancelBooking(id, statusUpdateData);
@@ -94,17 +92,17 @@ async function acceptBooking(id: number) {
           </tr>
         </thead>
         <tbody>
-          <tr v-for="obj in booking">
-            <th scope="row">{{ obj.bookingId }}</th>
-            <td>{{ obj.firstName }} {{ obj.lastName }}</td>
-            <td>{{ obj.guestNumber }}</td>
-            <td>{{ obj.restoran.name }}</td>
-            <td>{{ obj.status.status }}</td>
+          <tr v-for="(obj, index) in booking">
+            <th scope="row">{{ index + 1 }}</th>
+            <td>{{ obj.name }} {{ obj.lastname }}</td>
+            <td>{{ obj.guests }}</td>
+            <td>{{ obj.restoran }}</td>
+            <td>{{ obj.status }}</td>
             <td>
               <div class="btn-group">
                 <RouterLink
                   class="btn btn-sm btn-primary"
-                  :to="`/edit-booking/${obj.bookingId}`"
+                  :to="`/edit-booking/${obj._id}`"
                 >
                   <i class="fa-solid fa-pen-to-square"></i>
                 </RouterLink>
@@ -122,7 +120,7 @@ async function acceptBooking(id: number) {
                 type="button"
                 class="btn btn-sm btn-success"
                 title="Click for confirm booking"
-                @click="acceptBooking(obj.bookingId)"
+                @click="acceptBooking(obj._id)"
               >
                 <i class="fa-solid fa-check"></i>
               </button>
@@ -130,7 +128,7 @@ async function acceptBooking(id: number) {
                 type="button"
                 class="btn btn-sm btn-secondary"
                 title="Click for reject booking"
-                @click="cancelBooking(obj.bookingId)"
+                @click="cancelBooking(obj._id)"
               >
                 <i class="fa-solid fa-xmark"></i>
               </button>

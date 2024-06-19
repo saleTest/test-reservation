@@ -1,4 +1,5 @@
 export interface RestaurantModel {
+  // restaurantId: any;
   _id: string;
   // restaurantId: number;
 
