@@ -18,7 +18,7 @@ RestaurantService.getTopRankedRestourant().then((resto) => {
     </div>
     <div class="grid-container">
       <div v-for="r in restaurants" class="card-restourant">
-        <RouterLink :to="`/restaurant/${r.restaurantId}`">
+        <RouterLink :to="`/restaurant/${r._id}`">
           <div class="card-image-container">
             <!-- <img
               v-bind:src="'src/assets/images/' + r.imageUrl"
@@ -39,7 +39,7 @@ RestaurantService.getTopRankedRestourant().then((resto) => {
           </div>
           <div class="button">
             <RouterLink
-              :to="`/restaurant/${r.restaurantId}`"
+              :to="`/restaurant/${r._id}`"
               class="button w-100 btn btn-warning"
               >Reservate</RouterLink
             >
