@@ -6,7 +6,7 @@ import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
 const router = useRouter();
-const id = Number.parseInt(route.params.id as any);
+const id = String(route.params.id as any);
 
 const booking = ref<BookingModel>();
 BookingService.getBookingById(id).then((rsp) => {
@@ -16,7 +16,7 @@ BookingService.getBookingById(id).then((rsp) => {
 function updateBooking() {
   BookingService.updateBooking(id, booking.value).then((rsp) => {
     router.push({
-      path: "/",
+      path: "/booking/list",
     });
   });
 }
@@ -32,10 +32,10 @@ function updateBooking() {
       <div class="mb-3">
         <label for="id" class="form-label">Id:</label>
         <input
-          type="number"
+          type="string"
           class="form-control"
           id="id"
-          :value="booking.bookingId"
+          :value="booking._id"
           disabled
         />
       </div>
@@ -45,7 +45,7 @@ function updateBooking() {
           type="text"
           class="form-control"
           id="name"
-          v-model="booking.firstName"
+          v-model="booking.name"
         />
       </div>
       <div class="mb-3">
@@ -54,7 +54,7 @@ function updateBooking() {
           type="text"
           class="form-control"
           id="name"
-          v-model="booking.lastName"
+          v-model="booking.lastname"
         />
       </div>
       <div class="mb-3">
@@ -63,7 +63,7 @@ function updateBooking() {
           type="text"
           class="form-control"
           id="name"
-          v-model="booking.guestNumber"
+          v-model="booking.guests"
         />
       </div>
       <!-- <div class="mb-3">

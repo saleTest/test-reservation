@@ -12,6 +12,8 @@ import RestourantListView from "@/views/Restaurant/RestourantList.View.vue";
 import BookingListView from "@/views/Booking/BookingList.View.vue";
 import EditBookingView from "@/views/Booking/EditBookingView.vue";
 import TopRankedRestourantView from "@/views/Restaurant/TopRanked/TopRankedRestourantView.vue";
+import NewBookingView from "@/views/Booking/NewBookingView.vue";
+// import NewBookingView from "@/views/Booking/NewBookingView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -64,7 +66,11 @@ const router = createRouter({
       name: "edit-booking",
       component: EditBookingView,
     },
-
+    {
+      path: "/booking/new",
+      name: "new-booking",
+      component: NewBookingView,
+    },
     // AUTH
     {
       path: "/login",

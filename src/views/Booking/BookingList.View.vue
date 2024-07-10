@@ -42,29 +42,31 @@ async function removeBooking(model: BookingModel) {
 //   });
 // }
 
-async function cancelBooking(id: string) {
+function cancelBooking(id: string) {
   try {
-    const statusUpdateData = { statusId: 4 };
-    const response = await BookingService.cancelBooking(id, statusUpdateData);
-    if (response) {
+    const statusUpdateData = { status: "Rejected" };
+    BookingService.updateStatusBooking(id, statusUpdateData).then((rsp) => {
       router.push({
         path: "/booking/list",
       });
-    }
+      window.location.reload();
+      alert("Booking status updated successfully.");
+    });
   } catch (error) {
     console.error("Greška prilikom otkazivanja rezervacije:", error);
   }
 }
 
-async function acceptBooking(id: string) {
+function acceptBooking(id: string) {
   try {
-    const statusUpdateData = { statusId: 1 };
-    const response = await BookingService.cancelBooking(id, statusUpdateData);
-    if (response) {
+    const statusUpdateData = { status: "Accepted" };
+    BookingService.updateStatusBooking(id, statusUpdateData).then((rsp) => {
       router.push({
         path: "/booking/list",
       });
-    }
+      window.location.reload();
+      alert("Booking status updated successfully.");
+    });
   } catch (error) {
     console.error("Greška prilikom otkazivanja rezervacije:", error);
   }

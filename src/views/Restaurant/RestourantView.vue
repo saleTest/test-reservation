@@ -8,6 +8,13 @@ RestaurantService.getAllRestaurant().then((resto) => {
   restaurants.value = resto.data;
 });
 // console.log(restaurants.image_url)
+const truncateText = function (text: string, maxLength: number): string {
+  if (text.length > maxLength) {
+    return text.slice(0, maxLength) + "...";
+  } else {
+    return text;
+  }
+};
 </script>
 
 <template>
@@ -35,8 +42,15 @@ RestaurantService.getAllRestaurant().then((resto) => {
 
           <div class="body-card">
             <h2 class="title">{{ r.name }}</h2>
-            <div class="details">{{ r.details }}</div>
-            <span class="price">$ {{ r.price }}</span>
+            <!-- <div class="details">{{ r.details }}</div> -->
+            <div class="details">{{ truncateText(r.details, 100) }}</div>
+            <span class="price">{{
+              r.price == "0" ? "FREE" : "$ " + r.price
+            }}</span>
+
+            <!-- <span class="price">
+              {{ r.price === "0" ? "free" : "$ " + r.price }}
+            </span> -->
           </div>
           <div class="button">
             <RouterLink
@@ -125,6 +139,10 @@ RestaurantService.getAllRestaurant().then((resto) => {
   color: #131313;
   text-align: center;
   line-height: 1.3;
+  max-height: 5rem;
+  overflow: hidden;
+  white-space: normal;
+  text-overflow: ellipsis;
 }
 
 .price {
@@ -206,6 +224,10 @@ a {
     color: #131313;
     text-align: center;
     line-height: 1.3;
+    max-height: 5rem;
+    overflow: hidden;
+    white-space: normal;
+    text-overflow: ellipsis;
   }
 
   .price {

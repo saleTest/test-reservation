@@ -7,16 +7,25 @@ export class BookingService {
   static async getAllBooking() {
     return await useAxios("/booking");
   }
-  static async getBookingById(id: number) {
+  static async getBookingById(id: string) {
     return await useAxios(`/booking/${id}`);
   }
-  static async cancelBooking(id: string, data: any) {
-    console.log(data);
-    return await useAxios(`/booking/${id}/cancel`, "put", data);
+
+  static async addBooking(data: any) {
+    return await useAxios("/booking", "post", data);
   }
 
-  static async acceptBooking(id: string, data: any) {
-    return await useAxios(`/booking/${id}/accept`, "put", data);
+  // static async cancelBooking(id: string, data: any) {
+  //   console.log(data);
+  //   return await useAxios(`/booking/${id}/cancel`, "put", data);
+  // }
+
+  // static async acceptBooking(id: string, data: any) {
+  //   return await useAxios(`/booking/${id}/accept`, "put", data);
+  // }
+
+  static async updateStatusBooking(id: string, data: any) {
+    return await useAxios(`/booking/${id}/status`, "put", data);
   }
 
   static async updateBooking(id: string, data: any) {
