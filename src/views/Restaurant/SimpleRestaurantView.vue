@@ -217,7 +217,7 @@ function submitBooking() {
   margin-top: 5rem;
 }
 .col-md-6 {
-  display: flex;
+  /* display: flex; */
   /* justify-items: center; */
   align-items: center;
 }

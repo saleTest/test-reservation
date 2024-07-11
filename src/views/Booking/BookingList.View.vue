@@ -98,7 +98,7 @@ function acceptBooking(id: string) {
             <th scope="row">{{ index + 1 }}</th>
             <td>{{ obj.name }} {{ obj.lastname }}</td>
             <td>{{ obj.guests }}</td>
-            <td>{{ obj.restoran }}</td>
+            <td>{{ obj.restoran.name }}</td>
             <td>{{ obj.status }}</td>
             <td>
               <div class="btn-group">

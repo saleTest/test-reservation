@@ -5,7 +5,9 @@ export interface BookingModel {
   guests: number;
   name: string;
   lastname: string;
-  restoran: string;
+  restoran: {
+    name: string;
+  };
   user: string;
   status: string;
 
